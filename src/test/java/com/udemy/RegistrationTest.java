@@ -1,66 +1,55 @@
 package com.udemy;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import org.testng.annotations.Test;
-import java.io.File;
+import org.testng.annotations.*;
 
-public class RegistrationTest {
-        String Actualtext;
+public class RegistrationTest extends BaseTest{
 
     @Test(description ="Registration with valid data")
     public void registrationWithValidData(){
-        File chromeDriver = new File("src/main/resources/chromedriver");
-        ChromeDriverService chromeService = new ChromeDriverService.Builder()
-                .usingDriverExecutable(chromeDriver)
-                .usingAnyFreePort()
-                .build();
 
-        WebDriver driver = new ChromeDriver(chromeService);
+        By signUpPopupButtonLocator = By.xpath("//*[text () = 'Sign Up']");
+        By fullNameFieldLocator = By.id("id_fullname");
+        By emailFieldLocator = By.xpath("//input[@type='email']");
+        By passwordFieldLocator = By.id("password");
+        By signUpButtonLocator = By.xpath("//input[@value='Sign Up']");
+        By userLabelLocator = By.xpath("//span[@class='user-initials']");
+
         driver.get("https://www.udemy.com/");
-        pause(4000);
 
-        WebElement signUpPopupButton = driver.findElement(
-                By.xpath("//*[text () = 'Sign Up']"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(signUpPopupButtonLocator));
+        WebElement signUpPopupButton = driver.findElement(signUpPopupButtonLocator);
         signUpPopupButton.click();
-        pause(3000);
 
-        WebElement fullNameField = driver.findElement(By.id("id_fullname"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(fullNameFieldLocator));
+        WebElement fullNameField = driver.findElement(fullNameFieldLocator);
         fullNameField.clear();
         fullNameField.sendKeys("Test User");
 
-        WebElement emailField = driver.findElement(
-                By.xpath("//input[@type='email']"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(emailFieldLocator));
+        WebElement emailField = driver.findElement(emailFieldLocator);
         emailField.clear();
-        emailField.sendKeys("lm27@appcreative.net");
+        emailField.sendKeys("lm"+System.currentTimeMillis()+"@appcreative.net");
 
-        WebElement passwordField = driver.findElement(By.id("password"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(passwordFieldLocator));
+        WebElement passwordField = driver.findElement(passwordFieldLocator);
         passwordField.clear();
-        passwordField.sendKeys("qwerty123");
-        pause(1000);
+        passwordField.sendKeys("@@testUser"+System.currentTimeMillis());
 
-        WebElement signUpButtom = driver.findElement(
-                By.xpath("//input[@value='Sign Up']"));
-        signUpButtom.click();
-        pause(4000);
 
-        Actualtext = driver.findElement(
-                By.xpath(("//a[@data-purpose='my-courses']"))).getText();
-        Assert.assertEquals(Actualtext,"My courses");
+        WebElement signUpButton = driver.findElement(signUpButtonLocator);
+        wait.until(ExpectedConditions.elementToBeClickable(signUpButtonLocator));
+        signUpButton.click();
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(userLabelLocator));
+        WebElement userLabel = driver.findElement(userLabelLocator);
+        Assert.assertEquals(userLabel.getText(),"TU");
 
         pause(5000);
-        driver.quit();
+
     }
 
-    private void pause(int millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e){
-            e.printStackTrace();
-        }
-    }
 }
