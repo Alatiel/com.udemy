@@ -3,8 +3,13 @@ package com.udemi.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class HomePage {
 
@@ -19,6 +24,8 @@ public class HomePage {
     By signUpPopupButtonLocator = By.xpath("//*[text () = 'Sign Up']");
     By userLabelLocator = By.xpath("//span[@class='user-initials']");
     By bannerSearchFieldLocator = By.id("search-field-home");
+    By homePageCategoriesButtonLocator = By.xpath("//a[@data-purpose='browse-courses-link']");
+    By homePageCategoriesListLocator = By.xpath("//ul[contains(@class,'dropdown-menu__list--level-one')]");
 
     public void openHomePage(){
         driver.get("https://www.udemy.com/");
@@ -43,5 +50,35 @@ public class HomePage {
         bannerSearchField.sendKeys(bannerSearchValue);
         bannerSearchField.submit();
         return this;
+    }
+    public void openHomePageCategoriesMenu(){
+        Actions action = new Actions(driver);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(homePageCategoriesButtonLocator));
+        WebElement homePageCategoriesButton = driver.findElement(homePageCategoriesButtonLocator);
+        action.moveToElement(homePageCategoriesButton);
+        action.perform();
+    }
+
+    public List<String> actualHomePageCategoriesList (){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(homePageCategoriesListLocator));
+        WebElement homePageCategoriesMenuList = driver.findElement(homePageCategoriesListLocator);
+        List<WebElement> homePageCategoriesList = homePageCategoriesMenuList.findElements(By.tagName("li"));
+
+        List<String> homePageCategories=new ArrayList<>();
+
+        for (WebElement webElement : homePageCategoriesList) {
+
+            homePageCategories.add(webElement.getText());
+            //System.out.println(homePageCategoriesList.get(i).getText()); //for elements checking
+        }
+
+        return homePageCategories;
+    }
+
+    public  List<String>  expectedHomePageCategoriesList(){
+        List<String>  expectedHomePageCategoriesArray = Arrays.asList("Development", "Business", "Finance & Accounting",
+                "IT & Software", "Office Productivity", "Personal Development", "Design", "Marketing",
+                "Lifestyle", "Photography", "Health & Fitness", "Music", "Teaching & Academics");
+        return expectedHomePageCategoriesArray;
     }
 }

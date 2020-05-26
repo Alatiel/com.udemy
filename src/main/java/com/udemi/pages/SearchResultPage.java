@@ -18,6 +18,8 @@ public class SearchResultPage {
     By searchResultTitleLocator = By.xpath("//*[@class='search--header-container--2-Reh']");
     By firstSearchResultLocator = By.xpath("(//*[contains(@class,'udlite-focus-visible-target')])[1]");
     By headerSearchFieldLocator = By.xpath("//*[contains(@class,'js-header-search-field')]");
+    By headerHomePageSearchFieldLocator = By.id("header-search-field");
+
 
 
     public String getSearchResultTitleText(){
@@ -35,5 +37,10 @@ public class SearchResultPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(headerSearchFieldLocator));
         WebElement headerSearchField = driver.findElement(headerSearchFieldLocator);
         return headerSearchField.getAttribute("value");
+    }
+    public Boolean isHeaderHomePageSearchFieldLocatorEmpty(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(headerHomePageSearchFieldLocator));
+        WebElement headerHomePageSearchField = driver.findElement(headerHomePageSearchFieldLocator);
+        return headerHomePageSearchField.getAttribute("value") != null;
     }
 }

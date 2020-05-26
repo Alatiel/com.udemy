@@ -28,5 +28,14 @@
             </class>
         </classes>
     </test>
+    <test name="Categories test">
+        <classes>
+            <class name="com.udemy.CategoriesTest">
+                <methods>
+                    <include name="categoriesTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 </suite>
 

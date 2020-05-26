@@ -9,11 +9,12 @@ public class SearchTest extends BaseTest {
     public void searchTest(){
 
         homePage.openHomePage();
+        Assert.assertTrue(searchResultPage.isHeaderHomePageSearchFieldLocatorEmpty());
         homePage.enterBannerSearchValue("angular");
         Assert.assertFalse(searchResultPage.getFirstSearchResultTitle().startsWith("PHP"));
         Assert.assertEquals(searchResultPage.containsHeaderSearchField(),"angular" );
         Assert.assertTrue(searchResultPage.getSearchResultTitleText().contains("results for “angular”")
-                & searchResultPage.getFirstSearchResultTitle().gistartsWith("Angular")
+                & searchResultPage.getFirstSearchResultTitle().startsWith("Angular")
                 & driver.getCurrentUrl().contains("ref=home"));
     }
 }
