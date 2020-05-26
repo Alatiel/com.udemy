@@ -19,5 +19,14 @@
             </class>
         </classes>
     </test>
+    <test name="Search test">
+        <classes>
+            <class name="com.udemy.SearchTest">
+                <methods>
+                    <include name="searchTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 </suite>
 
