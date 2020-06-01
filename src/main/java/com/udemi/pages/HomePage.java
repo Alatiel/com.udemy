@@ -8,8 +8,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import static com.udemi.constans.BaseConst.BASE_URL;
 
 public class HomePage {
 
@@ -28,7 +29,7 @@ public class HomePage {
     By homePageCategoriesListLocator = By.xpath("//ul[contains(@class,'dropdown-menu__list--level-one')]");
 
     public void openHomePage(){
-        driver.get("https://www.udemy.com/");
+        driver.get(BASE_URL);
     }
 
     public void openRegistrationPopup(){
@@ -67,18 +68,10 @@ public class HomePage {
         List<String> homePageCategories=new ArrayList<>();
 
         for (WebElement webElement : homePageCategoriesList) {
-
             homePageCategories.add(webElement.getText());
             //System.out.println(homePageCategoriesList.get(i).getText()); //for elements checking
         }
 
         return homePageCategories;
-    }
-
-    public  List<String>  expectedHomePageCategoriesList(){
-        List<String>  expectedHomePageCategoriesArray = Arrays.asList("Development", "Business", "Finance & Accounting",
-                "IT & Software", "Office Productivity", "Personal Development", "Design", "Marketing",
-                "Lifestyle", "Photography", "Health & Fitness", "Music", "Teaching & Academics");
-        return expectedHomePageCategoriesArray;
     }
 }

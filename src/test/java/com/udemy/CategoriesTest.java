@@ -2,7 +2,8 @@ package com.udemy;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import java.util.Arrays;
+
+import static com.udemi.constans.BaseConst.EXPECTED_HOMEPAGE_CATEGORIES;
 
 
 public class CategoriesTest extends BaseTest {
@@ -11,6 +12,7 @@ public class CategoriesTest extends BaseTest {
     public void categoriesTest(){
         homePage.openHomePage();
         homePage.openHomePageCategoriesMenu();
-        Assert.assertEquals(homePage.actualHomePageCategoriesList(), homePage.expectedHomePageCategoriesList());
+        Assert.assertEquals(homePage.actualHomePageCategoriesList(), EXPECTED_HOMEPAGE_CATEGORIES) ;
+
     }
 }

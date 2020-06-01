@@ -3,6 +3,8 @@ package com.udemy;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static com.udemi.constans.BaseConst.*;
+
 public class SearchTest extends BaseTest {
 
     @Test(description = "Test banner search functionality")
@@ -10,11 +12,11 @@ public class SearchTest extends BaseTest {
 
         homePage.openHomePage();
         Assert.assertTrue(searchResultPage.isHeaderHomePageSearchFieldLocatorEmpty());
-        homePage.enterBannerSearchValue("angular");
-        Assert.assertFalse(searchResultPage.getFirstSearchResultTitle().startsWith("PHP"));
-        Assert.assertEquals(searchResultPage.containsHeaderSearchField(),"angular" );
-        Assert.assertTrue(searchResultPage.getSearchResultTitleText().contains("results for “angular”")
+        homePage.enterBannerSearchValue(SEARCH_VALUE);
+        Assert.assertFalse(searchResultPage.getFirstSearchResultTitle().startsWith(WRONG_SEARCH_VALUE));
+        Assert.assertEquals(searchResultPage.containsHeaderSearchField(),SEARCH_VALUE );
+        Assert.assertTrue(searchResultPage.getSearchResultTitleText().contains("results for “"+SEARCH_VALUE+"”")
                 & searchResultPage.getFirstSearchResultTitle().startsWith("Angular")
-                & driver.getCurrentUrl().contains("ref=home"));
+                & driver.getCurrentUrl().contains(URL_ROUT));
     }
 }
