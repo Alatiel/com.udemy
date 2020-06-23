@@ -1,7 +1,7 @@
 package com.udemy;
 
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
 
 import static com.udemi.testdata.UserData.newUser;
 
@@ -12,7 +12,7 @@ public class RegistrationTest extends BaseTest{
 
         homePage.openHomePage();
         homePage.openRegistrationPopup();
-        registrationPopup
+                registrationPopup
                 .enterName(newUser.getName())
                 .enterEmail(newUser.getEmail())
                 .enterPassword(newUser.getPassword())
